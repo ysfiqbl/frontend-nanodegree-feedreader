@@ -79,8 +79,6 @@ $(function() {
     /* This test suite named "Initial Entries" test the loading of feeds
      */
     describe('Initial Entries', function() {
-        var feed = $('.feed');
-
         beforeEach(function(done) {
             loadFeed(0, function() {
                 done();
@@ -109,7 +107,7 @@ $(function() {
                 secondFeed = $('.feed .entry-link').attr('href');
                 done();
             });
-        })
+        });
 
         /* Test that ensures that when a new feed is loaded by the loadFeed function
          * the content actually changes.
