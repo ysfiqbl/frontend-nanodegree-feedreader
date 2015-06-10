@@ -58,14 +58,12 @@ $(function() {
     describe('The Menu', function() {
         var body = $('body');
 
-        /* Test that ensures the menu element is hidden by default.
-         */
+        // Test that ensures the menu element is hidden by default.
         it('is be hidden by default', function() {
             expect(body.hasClass('menu-hidden')).toBe(true);
         });
 
-         /* Test that ensures the menu changes visibility when the menu icon is clicked.
-          */
+         // Test that ensures the menu changes visibility when the menu icon is clicked.
         it('changes visibility when the menu icon is clicked', function() {
             var menuIcon = $('.menu-icon-link');
             menuIcon.click();
@@ -76,13 +74,10 @@ $(function() {
     });
 
 
-    /* This test suite named "Initial Entries" test the loading of feeds
-     */
+    // This test suite named "Initial Entries" test the loading of feeds
     describe('Initial Entries', function() {
         beforeEach(function(done) {
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
         /* Test that ensures when the loadFeed function is called and completes its work,
@@ -94,19 +89,26 @@ $(function() {
         });
     });
 
-    /* This test suite checks if new feeds get loaded.
-     */
+    // This test suite checks if new feeds get loaded.
     describe('New Feed Section', function() {
         var firstFeed, secondFeed;
 
+        /* Load the URL of the default feed into the firstFeed variable
+         * and the URL of the feed with id 1 to the secondFeed variable before each test.
+         */
         beforeEach(function(done) {
             loadFeed(0, function() {
                 firstFeed = $('.feed .entry-link').attr('href');
+                loadFeed(1, function() {
+                    secondFeed = $('.feed .entry-link').attr('href');
+                    done();
+                });
             });
-            loadFeed(1, function() {
-                secondFeed = $('.feed .entry-link').attr('href');
-                done();
-            });
+        });
+
+        // Reset the feed to the default feed after running all tests.
+        afterAll(function(done) {
+            loadFeed(0, done);
         });
 
         /* Test that ensures that when a new feed is loaded by the loadFeed function
@@ -117,5 +119,4 @@ $(function() {
             done();
         });
     });
-
 }());
